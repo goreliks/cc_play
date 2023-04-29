@@ -8,6 +8,20 @@ parking_lots = {}
 lots_in_use = []
 
 
+@app.route('/test', methods=['POST'])
+def test():
+    name = request.args.get('name')
+    return f'Hello {name}'
+
+
+@app.route('/test2', methods=['POST'])
+def test1():
+    name = request.args.get('name')
+    return jsonify({
+        'name': name
+        })
+
+
 @app.route('/entry', methods=['GET', 'POST'])
 def entry():
     plate = request.args.get('plate')
