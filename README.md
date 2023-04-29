@@ -1,4 +1,4 @@
-﻿# Deliverables for Exercise 1 - [Parking Lot](exercise1/EXERCISE1.md)
+﻿# Deliverables for Exercise 1 - [Parking Lot](exercise1/README.md)
 
 ## For execution of the exercise 1 project:
 * Verify you have configured aws cli tool on your machine
