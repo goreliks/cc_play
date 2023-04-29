@@ -14,7 +14,7 @@ Resources:
           sudo apt update
           sudo apt install python3-flask -y
           git clone https://github.com/goreliks/cc_play.git
-          cd cc_play
+          cd cc_play/exercise1/
           export FLASK_APP=app.py
           nohup flask run --host=0.0.0.0 &
   WebServerSecurityGroup:

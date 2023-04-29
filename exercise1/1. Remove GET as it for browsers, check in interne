@@ -1,0 +1,6 @@
+1. Remove GET as it for browsers, check in internet how to explain (CHECKED ON EC2, works fot POST from POSTMAN) Browser sends GET request if url provided.
+2. Remove comments and not relevant code
+3. Check if after new repo clone, still need chmod +x for setup.sh (https://levelup.gitconnected.com/how-to-mark-a-file-as-executable-in-a-git-repo-80ee532f4366)
+4. Check if to add aws configure and how region relates to creation of stack
+5. Remove SSH from Security if not needed.
+6. Add MARKDOWN with explanations

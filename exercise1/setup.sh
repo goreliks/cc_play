@@ -18,16 +18,11 @@ aws cloudformation wait stack-create-complete \
   --region $REGION
 echo "Stack created!"
 
-
 # Get public IP address of EC2 instance
 INSTANCE_ID=$(aws cloudformation describe-stack-resources \
     --stack-name $STACK_NAME \
     --query 'StackResources[?LogicalResourceId==`EC2Instance`].PhysicalResourceId' \
     --output text)
-
-# echo "Waiting for EC2 instance to be created..."
-# aws ec2 wait instance-running --instance-ids $INSTANCE_ID
-# echo "EC2 instance created!"
 
 PUBLIC_IP=$(aws ec2 describe-instances \
     --instance-ids $INSTANCE_ID \
