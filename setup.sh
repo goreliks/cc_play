@@ -3,14 +3,13 @@
 # Set parameters
 STACK_NAME="my-flask-app-stack"
 TEMPLATE_FILE="my-flask-app.yaml"
-GIT_REPO_URL="https://github.com/goreliks/cc_play.git"
+REGION='eu-west-1'
 
 # Create CloudFormation stack
 aws cloudformation create-stack \
   --stack-name $STACK_NAME \
   --template-body file://$TEMPLATE_FILE \
   --region $REGION \
-  --parameters ParameterKey=GitRepoURL,ParameterValue=$GIT_REPO_URL
 
 # Wait for stack to complete
 echo "Waiting for stack to be created..."
@@ -19,10 +18,21 @@ aws cloudformation wait stack-create-complete \
   --region $REGION
 echo "Stack created!"
 
-# Get the public IP address of the web server
-PUBLIC_IP=$(aws cloudformation describe-stacks \
-  --stack-name $STACK_NAME \
-  --query 'Stacks[0].Outputs[?OutputKey==`PublicIP`].OutputValue' \
-  --output text)
 
+# Get public IP address of EC2 instance
+INSTANCE_ID=$(aws cloudformation describe-stack-resources \
+    --stack-name $STACK_NAME \
+    --query 'StackResources[?LogicalResourceId==`EC2Instance`].PhysicalResourceId' \
+    --output text)
+
+# echo "Waiting for EC2 instance to be created..."
+# aws ec2 wait instance-running --instance-ids $INSTANCE_ID
+# echo "EC2 instance created!"
+
+PUBLIC_IP=$(aws ec2 describe-instances \
+    --instance-ids $INSTANCE_ID \
+    --query 'Reservations[0].Instances[0].PublicIpAddress' \
+    --output text)
+
+echo "Flask web server deployed successfully!"
 echo "The URL for the web server is http://${PUBLIC_IP}:5000"
